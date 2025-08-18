@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipal Office Dashboard | AiGRI</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>AiGRI Portal</h2>
+            <p>Municipal Agriculture Office</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="register-farm.html"><i class="fas fa-map-marked-alt"></i> Register Farm</a></li>
+                <li><a href="assess-damage.html"><i class="fas fa-clipboard-check"></i> Damage Assessment</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Farmers</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="content-header">
+            <h1>Municipal Office Dashboard</h1>
+            <div class="user-profile">
+                <img src="../img/user-avatar.jpg" alt="User Avatar">
+                <span>Municipal Agriculture Officer</span>
+            </div>
+        </div>
+
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <h3>Registered Farms</h3>
+                <div class="card-value" id="total-farms">0</div>
+                <div class="card-description">In your municipality</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Active Assessments</h3>
+                <div class="card-value" id="active-assessments">0</div>
+                <div class="card-description">Currently processing</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Completed Claims</h3>
+                <div class="card-value" id="completed-claims">0</div>
+                <div class="card-description">This month</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Farmers Served</h3>
+                <div class="card-value" id="farmers-served">0</div>
+                <div class="card-description">This year</div>
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>New Farm Registered</h4>
+                    <p>Juan Dela Cruz - 2.5 hectares - Today, 10:30 AM</p>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Damage Assessment Completed</h4>
+                    <p>Maria Santos - Typhoon Damage - Yesterday, 3:45 PM</p>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Claim Submitted to PCIC</h4>
+                    <p>Roberto Garcia - ₱25,000 claim - Yesterday, 11:20 AM</p>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="activity-details">
+                    <h4>Claim Approved</h4>
+                    <p>Luzviminda Reyes - ₱18,500 payout - 2 days ago</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-alert">
+            <h2>Weather Alerts</h2>
+            <div class="alert alert-warning">
+                <strong>Typhoon Warning:</strong> Tropical Storm 'Odette' is expected to make landfall in your area within 48 hours.
+            </div>
+            <div class="alert alert-info">
+                <strong>Dry Spell Advisory:</strong> The next 2 weeks are forecast to have below-average rainfall.
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            
+            // Load dashboard data
+            loadDashboardData();
+        });
+
+        // Load dashboard statistics
+        async function loadDashboardData() {
+            try {
+                // Simulate API calls - replace with actual API calls in production
+                setTimeout(() => {
+                    document.getElementById('total-farms').textContent = '247';
+                    document.getElementById('active-assessments').textContent = '12';
+                    document.getElementById('completed-claims').textContent = '18';
+                    document.getElementById('farmers-served').textContent = '189';
+                }, 1000);
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+    </script>
+</body>
+</html>

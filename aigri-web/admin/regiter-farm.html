@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Farm | AiGRI</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/leaflet-overrides.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>AiGRI Portal</h2>
+            <p>Municipal Agriculture Office</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="register-farm.html" class="active"><i class="fas fa-map-marked-alt"></i> Register Farm</a></li>
+                <li><a href="assess-damage.html"><i class="fas fa-clipboard-check"></i> Damage Assessment</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Farmers</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="content-header">
+            <h1>Register New Farm</h1>
+            <div class="user-profile">
+                <img src="../img/user-avatar.jpg" alt="User Avatar">
+                <span>Municipal Agriculture Officer</span>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h2 class="form-title">Farm Information</h2>
+            
+            <form id="farm-registration-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="farmer-name">Farmer Name</label>
+                        <input type="text" id="farmer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rsbsa-number">RSBSA Number</label>
+                        <input type="text" id="rsbsa-number" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="barangay">Barangay</label>
+                        <input type="text" id="barangay" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="crop-type">Primary Crop</label>
+                        <select id="crop-type" required>
+                            <option value="">Select crop</option>
+                            <option value="rice">Rice</option>
+                            <option value="corn">Corn</option>
+                            <option value="coconut">Coconut</option>
+                            <option value="sugarcane">Sugarcane</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Farm Boundary</label>
+                    <div class="map-container" id="farm-map"></div>
+                    <p class="help-text">Draw the farm boundary on the map above</p>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="farm-area">Area (hectares)</label>
+                        <input type="text" id="farm-area" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="planting-date">Last Planting Date</label>
+                        <input type="date" id="planting-date" required>
+                    </div>
+                </div>
+                
+                <input type="hidden" id="boundary-coords">
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Register Farm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="../js/map.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            
+            // Initialize form submission
+            const form = document.getElementById('farm-registration-form');
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!validateForm(form)) {
+                    return;
+                }
+                
+                // Prepare farm data
+                const farmData = {
+                    farmerName: document.getElementById('farmer-name').value,
+                    rsbsaNumber: document.getElementById('rsbsa-number').value,
+                    barangay: document.getElementById('barangay').value,
+                    cropType: document.getElementById('crop-type').value,
+                    area: parseFloat(document.getElementById('farm-area').value),
+                    plantingDate: document.getElementById('planting-date').value,
+                    boundaryCoordinates: JSON.parse(document.getElementById('boundary-coords').value)
+                };
+                
+                try {
+                    // Simulate API call - replace with actual API call in production
+                    console.log('Submitting farm data:', farmData);
+                    
+                    // Show success message
+                    alert('Farm successfully registered!');
+                    
+                    // Reset form
+                    form.reset();
+                    document.getElementById('farm-area').value = '';
+                    document.getElementById('boundary-coords').value = '';
+                    
+                    // Clear drawn items on map
+                    if (window.map && window.map.eachLayer) {
+                        window.map.eachLayer(layer => {
+                            if (layer instanceof L.Polygon) {
+                                window.map.removeLayer(layer);
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error registering farm:', error);
+                    alert('Error registering farm. Please try again.');
+                }
+            });
+        });
+        
+        function validateForm(form) {
+            let isValid = true;
+            
+            // Check required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+            
+            // Check boundary coordinates
+            const boundaryCoords = document.getElementById('boundary-coords').value;
+            if (!boundaryCoords) {
+                alert('Please draw the farm boundary on the map');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+    </script>
+</body>
+</html>
