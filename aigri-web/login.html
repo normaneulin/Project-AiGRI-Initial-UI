@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | AiGRI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="img/aigri-logo.png" alt="AiGRI Logo">
+                <span>Assess, Insure, Guarantee, Respond, Include</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="login-main">
+        <div class="container">
+            <h1>Access AiGRI Portal</h1>
+            <p class="subtitle">Select your login type to continue</p>
+            
+            <div class="login-cards">
+                <div class="login-card" id="admin-login">
+                    <div class="card-icon">
+                        <img src="img/gov-building.svg" alt="Government Building">
+                    </div>
+                    <h2>Municipal Agriculture Office</h2>
+                    <p>For LGU staff to register farms, initiate assessments, and manage claims</p>
+                    <form id="admin-login-form">
+                        <div class="form-group">
+                            <label for="admin-email">Email</label>
+                            <input type="email" id="admin-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-password">Password</label>
+                            <input type="password" id="admin-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                </div>
+                
+                <div class="login-card" id="farmer-login">
+                    <div class="card-icon">
+                        <img src="img/farmer.svg" alt="Farmer">
+                    </div>
+                    <h2>Farmer Portal</h2>
+                    <p>For farmers to check claim status and insurance information</p>
+                    <a href="#" class="btn-secondary">Coming Soon</a>
+                </div>
+            </div>
+            
+            <div class="login-info">
+                <p>Don't have access? Contact your Municipal Agriculture Office for assistance.</p>
+                <p>This system is part of the Philippine Department of Agriculture's digital transformation initiative.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>A project of University of the Philippines Tacloban</p>
+            <p>Aligning with Philippine Development Plan 2023-2028</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
