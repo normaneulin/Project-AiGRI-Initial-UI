@@ -8,6 +8,7 @@
     --success-color: #4caf50;
     --warning-color: #ff9800;
     --info-color: #2196f3;
+    --logo-name-color: #f8cb4d;
 }
 
 /* Base Styles */
@@ -18,7 +19,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     line-height: 1.6;
     color: var(--dark-color);
     background-color: #f5f5f5;
@@ -95,12 +96,45 @@ img {
 
 /* Header */
 .main-header {
-    background-color: white;
+    background-color: #1f5a2d;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: fixed;
+    top: 0;
     width: 100%;
     z-index: 1000;
-    padding: 15px 0;
+    padding: 5px 0;
+}
+
+.main-header .nav-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li a {
+    color: white;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-menu li a:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.about-section {
+    margin-top: 30px;
 }
 
 .logo {
@@ -114,8 +148,8 @@ img {
 }
 
 .logo span {
-    font-size: 0.9rem;
-    color: var(--dark-color);
+    font-size: 2.50rem;
+    color: var(--light-color);
     font-weight: 500;
 }
 
@@ -126,18 +160,18 @@ nav ul {
 }
 
 nav a {
-    color: var(--dark-color);
+    color: var(--light-color);
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/farmers-hero.jpg');
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/background-farmers.jpg');
     background-size: cover;
     background-position: center;
     color: white;
